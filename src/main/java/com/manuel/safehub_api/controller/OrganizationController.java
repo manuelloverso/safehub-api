@@ -1,10 +1,12 @@
 package com.manuel.safehub_api.controller;
 
 import com.manuel.safehub_api.application.services.organization.OrganizationService;
+import com.manuel.safehub_api.controller.dto.OrganizationRequest;
 import com.manuel.safehub_api.controller.dto.OrganizationResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +20,21 @@ public class OrganizationController {
     }
 
     @GetMapping("/organizations")
-    public List<OrganizationResponse> getOrganizations(){
-        return organizationService.getOrganizations();
+    public ResponseEntity<List<OrganizationResponse>> getOrganizations(){
+
+        List<OrganizationResponse> result = organizationService.getOrganizations();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/organizations/{id}")
+    public ResponseEntity<OrganizationResponse> getOrganizationById(@PathVariable Long id){
+        OrganizationResponse result = organizationService.getOrganizationById(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/organizations")
+    public ResponseEntity<OrganizationResponse> createOrganization(@RequestBody @Valid OrganizationRequest request) {
+        OrganizationResponse result = organizationService.createOrganization(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }

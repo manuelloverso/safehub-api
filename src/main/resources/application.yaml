@@ -1,4 +1,6 @@
 spring:
+  web:
+    locale: en_US
   application:
     name: safehub-api
   datasource:
