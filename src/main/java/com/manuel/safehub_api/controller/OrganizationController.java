@@ -4,14 +4,14 @@ import com.manuel.safehub_api.application.services.organization.OrganizationServ
 import com.manuel.safehub_api.controller.dto.OrganizationRequest;
 import com.manuel.safehub_api.controller.dto.OrganizationResponse;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class OrganizationController {
     private final OrganizationService organizationService;
 
@@ -20,9 +20,9 @@ public class OrganizationController {
     }
 
     @GetMapping("/organizations")
-    public ResponseEntity<List<OrganizationResponse>> getOrganizations(){
+    public ResponseEntity<Page<OrganizationResponse>> getOrganizations(Pageable pageable){
 
-        List<OrganizationResponse> result = organizationService.getOrganizations();
+        Page<OrganizationResponse> result = organizationService.getOrganizations(pageable);
         return ResponseEntity.ok(result);
     }
 

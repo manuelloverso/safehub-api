@@ -1,6 +1,6 @@
 package com.manuel.safehub_api.controller.exception;
 
-import org.springframework.http.HttpStatus;
+import com.manuel.safehub_api.domain.exception.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;

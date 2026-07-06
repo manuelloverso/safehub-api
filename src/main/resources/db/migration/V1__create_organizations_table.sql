@@ -1,7 +1,27 @@
 CREATE TABLE organizations (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email varchar(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+    id                  BIGINT       GENERATED ALWAYS AS IDENTITY,
+    name                VARCHAR(255) NOT NULL,
+    legal_name          VARCHAR(255) NOT NULL,
+    vat_number          VARCHAR(50)  NOT NULL,
+    slug                VARCHAR(100) NOT NULL,
+    email               VARCHAR(255) NOT NULL,
+    phone               VARCHAR(30)  NOT NULL,
+    website             VARCHAR(255),
+    address             VARCHAR(255) NOT NULL,
+    city                VARCHAR(100) NOT NULL,
+    postal_code         VARCHAR(20)  NOT NULL,
+    province            VARCHAR(50)  NOT NULL,
+    country             CHAR(2)      NOT NULL,
+    status              VARCHAR(30)  NOT NULL,
+    email_verified_at   TIMESTAMPTZ,
+    version             BIGINT       NOT NULL DEFAULT 0,
+    created_at          TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TIMESTAMPTZ  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    deleted_at          TIMESTAMPTZ,
+
+    CONSTRAINT pk_organizations          PRIMARY KEY (id),
+    CONSTRAINT uk_organizations_email    UNIQUE (email),
+    CONSTRAINT uk_organizations_vat      UNIQUE (vat_number),
+    CONSTRAINT uk_organizations_slug     UNIQUE (slug),
+    CONSTRAINT ck_organizations_status   CHECK (status IN ('active', 'inactive', 'suspended'))
+);
