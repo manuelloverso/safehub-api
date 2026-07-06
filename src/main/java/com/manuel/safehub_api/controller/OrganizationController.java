@@ -1,8 +1,8 @@
 package com.manuel.safehub_api.controller;
 
 import com.manuel.safehub_api.application.services.organization.OrganizationService;
-import com.manuel.safehub_api.controller.dto.OrganizationRequest;
-import com.manuel.safehub_api.controller.dto.OrganizationResponse;
+import com.manuel.safehub_api.controller.dto.organization.OrganizationRequest;
+import com.manuel.safehub_api.controller.dto.organization.OrganizationResponse;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

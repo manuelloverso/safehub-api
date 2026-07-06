@@ -1,7 +1,7 @@
 package com.manuel.safehub_api.application.services.organization;
 
-import com.manuel.safehub_api.controller.dto.OrganizationRequest;
-import com.manuel.safehub_api.controller.dto.OrganizationResponse;
+import com.manuel.safehub_api.controller.dto.organization.OrganizationRequest;
+import com.manuel.safehub_api.controller.dto.organization.OrganizationResponse;
 import com.manuel.safehub_api.domain.exception.ResourceNotFoundException;
 import com.manuel.safehub_api.infrastructure.jpa.entities.OrganizationJpaEntity;
 import com.manuel.safehub_api.infrastructure.jpa.repositories.OrganizationJpaRepository;

@@ -3,7 +3,7 @@ CREATE TABLE clients (
     organization_id     BIGINT          NOT NULL,
     name                VARCHAR(255)    NOT NULL,
     legal_name          VARCHAR(255)    NOT NULL,
-    vat_number          VARCHAR(50)     NOT NULL,
+    vat_number          VARCHAR(50),
     email               VARCHAR(255),
     phone               VARCHAR(30),
     notes               TEXT,

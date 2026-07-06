@@ -1,4 +1,4 @@
-package com.manuel.safehub_api.controller.dto;
+package com.manuel.safehub_api.controller.dto.organization;
 
 public class OrganizationResponse {
     private final Long id;
