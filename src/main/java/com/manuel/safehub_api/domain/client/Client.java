@@ -1,9 +1,11 @@
 package com.manuel.safehub_api.domain.client;
 
 
+import java.util.Objects;
+
 public class Client {
 
-    private final Long id;
+    private Long id;
     private final Long organizationId;
     private final String name;
     private final String legalName;
@@ -13,36 +15,46 @@ public class Client {
     private final String notes;
     private final ClientStatus status;
 
-    private Client(Long id, Long organizationId, String name, String legalName,
-                   String vatNumber, String email, String phone, String notes,
-                   ClientStatus status) {
+    private Client(
+        Long id,
+        Long organizationId,
+        String name,
+        String legalName,
+        String vatNumber,
+        String email,
+        String phone,
+        String notes,
+        ClientStatus status
+    ) {
         this.id = id;
-        this.organizationId = organizationId;
-        this.name = name;
-        this.legalName = legalName;
+        this.organizationId = Objects.requireNonNull(organizationId, "organizationId is required");
+        this.name = Objects.requireNonNull(name, "name is required");
+        this.legalName = Objects.requireNonNull(legalName, "legalName is required");
         this.vatNumber = vatNumber;
         this.email = email;
         this.phone = phone;
         this.notes = notes;
-        this.status = status;
+        this.status = Objects.requireNonNull(status, "status is required");
     }
 
-    /**
-     * Creates a brand-new client. This is the only sanctioned way to bring a Client into
-     * existence, and it enforces the creation invariants. The id is left null — the
-     * database assigns it — and the status is fixed to {@link ClientStatus#ACTIVE}.
-     */
-    public static Client create(Long organizationId, String name, String legalName,
-                                String vatNumber, String email, String phone, String notes) {
+    public static Client create(
+        Long organizationId,
+        String name,
+        String legalName,
+        String vatNumber,
+        String email,
+        String phone,
+        String notes
+    ) {
         if (organizationId == null) {
             throw new IllegalArgumentException("organizationId is required");
         }
         return new Client(
             null,
             organizationId,
-            requireText(name, "name"),
-            requireText(legalName, "legalName"),
-            requireText(vatNumber, "vatNumber"),
+            name,
+            legalName,
+            vatNumber,
             email,
             phone,
             notes,
@@ -50,24 +62,31 @@ public class Client {
         );
     }
 
-    /**
-     * Rebuilds an existing client from persisted state. Used by the repository adapter when
-     * reading rows back out. No invariant checks run here: the data was already valid when
-     * it was stored, and re-validating on every load conflates "creating" with "loading".
-     */
-    public static Client reconstitute(Long id, Long organizationId, String name, String legalName,
-                                      String vatNumber, String email, String phone, String notes,
-                                      ClientStatus status) {
-        return new Client(id, organizationId, name, legalName, vatNumber, email, phone, notes, status);
+    public static Client reconstitute(
+        Long id,
+        Long organizationId,
+        String name,
+        String legalName,
+        String vatNumber,
+        String email,
+        String phone,
+        String notes,
+        ClientStatus status
+    ) {
+        return new Client(
+            id,
+            organizationId,
+            name,
+            legalName,
+            vatNumber,
+            email,
+            phone,
+            notes,
+            status
+        );
     }
 
-    private static String requireText(String value, String field) {
-        if (value == null || value.isBlank()) {
-            throw new IllegalArgumentException(field + " must not be blank");
-        }
-        return value.trim();
-    }
-
+    //GETTERS
     public Long getId() {
         return id;
     }
@@ -102,5 +121,10 @@ public class Client {
 
     public ClientStatus getStatus() {
         return status;
+    }
+
+    //SETTERS
+    public void setId(Long id) {
+        this.id = id;
     }
 }

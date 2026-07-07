@@ -7,7 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "clients")
@@ -45,13 +45,13 @@ public class ClientJpaEntity {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private OffsetDateTime createdAt;
+    private Instant createdAt;
 
     @LastModifiedDate
     @Column(nullable = false)
-    private OffsetDateTime updatedAt;
+    private Instant updatedAt;
 
-    private OffsetDateTime deletedAt;
+    private Instant deletedAt;
 
     public ClientJpaEntity() {}
 
@@ -85,12 +85,12 @@ public class ClientJpaEntity {
     public Long getVersion() { return version; }
     public void setVersion(Long version) { this.version = version; }
 
-    public OffsetDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(OffsetDateTime createdAt) { this.createdAt = createdAt; }
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 
-    public OffsetDateTime getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(OffsetDateTime updatedAt) { this.updatedAt = updatedAt; }
+    public Instant getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
 
-    public OffsetDateTime getDeletedAt() { return deletedAt; }
-    public void setDeletedAt(OffsetDateTime deletedAt) { this.deletedAt = deletedAt; }
+    public Instant getDeletedAt() { return deletedAt; }
+    public void setDeletedAt(Instant deletedAt) { this.deletedAt = deletedAt; }
 }

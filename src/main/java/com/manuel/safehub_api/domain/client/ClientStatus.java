@@ -5,7 +5,6 @@ public enum ClientStatus {
     INACTIVE,
     SUSPENDED;
 
-    /** The token as persisted in the {@code clients.status} column. */
     public String dbValue() {
         return name().toLowerCase();
     }

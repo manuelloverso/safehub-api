@@ -12,11 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final ClientDtoAssembler clientDtoAssembler;
 
-    public ClientService(ClientRepository clientRepository, ClientDtoAssembler clientDtoAssembler) {
+    public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
-        this.clientDtoAssembler = clientDtoAssembler;
     }
 
     @Transactional
@@ -35,6 +33,18 @@ public class ClientService {
         );
 
         Client savedClient = clientRepository.save(client);
-        return clientDtoAssembler.toResponse(savedClient);
+        return toResponse(savedClient);
+    }
+
+    private ClientResponse toResponse(Client client) {
+        return new ClientResponse(
+            client.getId(),
+            client.getName(),
+            client.getLegalName(),
+            client.getVatNumber(),
+            client.getEmail(),
+            client.getPhone(),
+            client.getNotes()
+        );
     }
 }
