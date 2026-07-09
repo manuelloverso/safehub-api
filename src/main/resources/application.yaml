@@ -1,6 +1,11 @@
 spring:
   web:
     locale: en_US
+  data:
+    web:
+      pageable:
+        max-page-size: 100
+        default-page-size: 15
   application:
     name: safehub-api
   datasource:

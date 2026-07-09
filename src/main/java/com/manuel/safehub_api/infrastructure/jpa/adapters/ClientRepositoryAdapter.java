@@ -1,10 +1,15 @@
 package com.manuel.safehub_api.infrastructure.jpa.adapters;
 
+import com.manuel.safehub_api.controller.dto.client.ClientFilter;
 import com.manuel.safehub_api.domain.client.Client;
 import com.manuel.safehub_api.domain.client.ClientRepository;
 import com.manuel.safehub_api.domain.client.ClientStatus;
 import com.manuel.safehub_api.infrastructure.jpa.entities.ClientJpaEntity;
 import com.manuel.safehub_api.infrastructure.jpa.repositories.ClientJpaRepository;
+import com.manuel.safehub_api.infrastructure.jpa.specifications.ClientSpecifications;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 
@@ -22,6 +27,16 @@ public class ClientRepositoryAdapter implements ClientRepository {
         ClientJpaEntity entity = toJpa(client);
         ClientJpaEntity saved = clientJpaRepository.save(entity);
         return toDomain(saved);
+    }
+
+    @Override
+    public Page<Client> search(Long organizationId, ClientFilter clientFilter, Pageable pageable) {
+        Specification<ClientJpaEntity> spec = ClientSpecifications.belongsToOrganization(organizationId)
+            .and(ClientSpecifications.notDeleted())
+            .and(ClientSpecifications.hasName(clientFilter.name()))
+            .and(ClientSpecifications.hasVatNumber(clientFilter.vatNumber()));
+
+        return clientJpaRepository.findAll(spec, pageable).map(this::toDomain);
     }
 
     private ClientJpaEntity toJpa(Client client) {

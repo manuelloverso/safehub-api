@@ -46,9 +46,6 @@ public class Client {
         String phone,
         String notes
     ) {
-        if (organizationId == null) {
-            throw new IllegalArgumentException("organizationId is required");
-        }
         return new Client(
             null,
             organizationId,
